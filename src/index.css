@@ -204,6 +204,7 @@
   padding: 1rem 1.5rem 2rem;
   display: flex;
   flex-direction: column;
+  animation: galaxy-scale-in 0.6s ease-out both;
 }
 
 .galaxy-screen .status {
