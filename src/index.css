@@ -217,6 +217,35 @@ body::after {
   color: #2a4a5a;
 }
 
+.galaxy-form .field select {
+  width: 100%;
+  background: #020c1b;
+  border: 1px solid rgba(0, 245, 255, 0.15);
+  border-radius: 2px;
+  padding: 0.6rem 0.75rem;
+  color: #e0f0ff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300f5ff' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  cursor: pointer;
+}
+
+.galaxy-form .field select:focus {
+  border-color: rgba(0, 245, 255, 0.5);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.25);
+}
+
+.galaxy-form .field select option {
+  background: #020c1b;
+  color: #e0f0ff;
+}
+
 .galaxy-form button {
   width: 100%;
   margin-top: 1.25rem;
