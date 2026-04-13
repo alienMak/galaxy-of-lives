@@ -223,10 +223,10 @@ Categories (in order): ${cats.join(", ")}
 
 Make them feel real and specific — places, names, concrete details. Include uncomfortable lives, surprising lives, lives they'd never consciously choose. NOT all positive.
 
-Keep each field very short: headline max 6 words, summary max 1 sentence, inflection max 1 sentence, each tag max 2 words.
+Make each life rich and detailed: headline max 8 words, summary 3-4 sentences with specific places, names, and emotions, inflection 2 sentences describing the moment and why it mattered, tags 3 descriptive tags.
 
 Return ONLY a valid JSON array of exactly ${BATCH} objects. No markdown, no extra text.
-Each: {"headline":"max 6 words","summary":"1 sentence","inflection":"1 sentence","tags":["tag1","tag2","tag3"]}`;
+Each: {"headline":"max 8 words","summary":"3-4 sentences","inflection":"2 sentences","tags":["tag1","tag2","tag3"]}`;
 
     try {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -239,7 +239,7 @@ Each: {"headline":"max 6 words","summary":"1 sentence","inflection":"1 sentence"
         },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
-          max_tokens: 8000,
+          max_tokens: 16000,
           messages: [{ role: "user", content: prompt }],
         }),
       });
