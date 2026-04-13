@@ -278,7 +278,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
     setSelected(null);
     setScreen("galaxy");
     for (let b = 0; b < TOTAL / BATCH; b++) {
-      setTimeout(() => fetchBatch(b, profile), b * 700);
+      setTimeout(() => fetchBatch(b, profile), b * 15000);
     }
   }
 
@@ -338,7 +338,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
     ? errorMessage
     : received >= TOTAL
       ? `All ${TOTAL} lives mapped — click any star to explore`
-      : `${received} of ${TOTAL} lives generating...`;
+      : `${received} of ${TOTAL} lives generating... (generating slowly to respect API limits)`;
 
   return (
     <div className="galaxy-screen">
