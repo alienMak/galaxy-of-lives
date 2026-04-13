@@ -241,14 +241,25 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
           messages: [{ role: "user", content: prompt }],
         }),
       });
+
       const data = await res.json();
+      console.log("Anthropic batch response:", data);
+
+      if (!res.ok || data?.error) {
+        throw new Error(data?.error?.message || `Request failed with status ${res.status}`);
+      }
+
       const raw = data.content?.[0]?.text || "[]";
       const lives = JSON.parse(raw.replace(/```json|```/g, "").trim());
       lives.forEach((l, i) => {
         if (bs[i]) { bs[i].life = l; bs[i].loading = false; }
       });
       setReceived(r => r + lives.length);
-    } catch {
+      setErrorMessage("");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to generate lives.";
+      console.error("Anthropic batch error:", error);
+      setErrorMessage(message);
       bs.forEach(s => (s.loading = false));
     }
   }
