@@ -333,9 +333,11 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
   }
 
   // galaxy screen
-  const statusText = received >= TOTAL
-    ? `All ${TOTAL} lives mapped — click any star to explore`
-    : `${received} of ${TOTAL} lives generating...`;
+  const statusText = errorMessage
+    ? errorMessage
+    : received >= TOTAL
+      ? `All ${TOTAL} lives mapped — click any star to explore`
+      : `${received} of ${TOTAL} lives generating...`;
 
   return (
     <div className="galaxy-screen">
