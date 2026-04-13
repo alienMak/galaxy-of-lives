@@ -41,6 +41,7 @@ function seedStars() {
 export default function GalaxyOfLives() {
   const [screen, setScreen] = useState("form"); // "form" | "galaxy"
   const [profile, setProfile] = useState({ age: "26", work: "", loc: "", want: "", fear: "" });
+  const [apiKey, setApiKey] = useState(() => localStorage.getItem("anthropic_key") || "");
   const [received, setReceived] = useState(0);
   const [selected, setSelected] = useState(null);
   const [tooltip, setTooltip] = useState(null); // {x, y, star}
