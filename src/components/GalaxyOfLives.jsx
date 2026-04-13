@@ -44,6 +44,7 @@ export default function GalaxyOfLives() {
   const [apiKey, setApiKey] = useState(() => localStorage.getItem("anthropic_key") || "");
   const [keyError, setKeyError] = useState(false);
   const [received, setReceived] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
   const [selected, setSelected] = useState(null);
   const [tooltip, setTooltip] = useState(null); // {x, y, star}
 
@@ -61,12 +62,20 @@ export default function GalaxyOfLives() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+    const initCanvas = () => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
     };
-    resize();
+
+    const timeoutId = window.setTimeout(() => initCanvas(), 100);
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    };
     window.addEventListener("resize", resize);
 
     function draw(ts) {
@@ -109,6 +118,7 @@ export default function GalaxyOfLives() {
 
     rafRef.current = requestAnimationFrame(draw);
     return () => {
+      window.clearTimeout(timeoutId);
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", resize);
     };
@@ -231,14 +241,25 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
           messages: [{ role: "user", content: prompt }],
         }),
       });
+
       const data = await res.json();
+      console.log("Anthropic batch response:", data);
+
+      if (!res.ok || data?.error) {
+        throw new Error(data?.error?.message || `Request failed with status ${res.status}`);
+      }
+
       const raw = data.content?.[0]?.text || "[]";
       const lives = JSON.parse(raw.replace(/```json|```/g, "").trim());
       lives.forEach((l, i) => {
         if (bs[i]) { bs[i].life = l; bs[i].loading = false; }
       });
       setReceived(r => r + lives.length);
-    } catch {
+      setErrorMessage("");
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Failed to generate lives.";
+      console.error("Anthropic batch error:", error);
+      setErrorMessage(message);
       bs.forEach(s => (s.loading = false));
     }
   }
@@ -249,6 +270,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
       return;
     }
     setKeyError(false);
+    setErrorMessage("");
     localStorage.setItem("anthropic_key", apiKey);
     starsRef.current = seedStars();
     viewRef.current = { ox: 0, oy: 0, sc: 1 };
@@ -266,6 +288,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
     setScreen("form");
     setSelected(null);
     setReceived(0);
+    setErrorMessage("");
   }
 
   // ── render ────────────────────────────────────────────────────────────────
@@ -311,9 +334,11 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
   }
 
   // galaxy screen
-  const statusText = received >= TOTAL
-    ? `All ${TOTAL} lives mapped — click any star to explore`
-    : `${received} of ${TOTAL} lives generating...`;
+  const statusText = errorMessage
+    ? errorMessage
+    : received >= TOTAL
+      ? `All ${TOTAL} lives mapped — click any star to explore`
+      : `${received} of ${TOTAL} lives generating...`;
 
   return (
     <div className="galaxy-screen">
