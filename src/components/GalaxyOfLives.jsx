@@ -243,6 +243,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
   }
 
   function startGeneration() {
+    localStorage.setItem("anthropic_key", apiKey);
     starsRef.current = seedStars();
     viewRef.current = { ox: 0, oy: 0, sc: 1 };
     setReceived(0);
