@@ -11,7 +11,7 @@ const COL = {
   unconventional: "#AFA9EC",
 };
 const TOTAL = 100;
-const BATCH = 10;
+const BATCH = 5;
 
 function wrand() {
   let r = Math.random(), c = 0;
@@ -237,7 +237,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
         },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
+          max_tokens: 4000,
           messages: [{ role: "user", content: prompt }],
         }),
       });
