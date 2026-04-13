@@ -120,6 +120,13 @@
   text-decoration: underline;
 }
 
+.galaxy-form .api-error {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 13px;
+  color: #f87171;
+}
+
 .galaxy-form .field {
   width: 100%;
   margin-bottom: 1rem;

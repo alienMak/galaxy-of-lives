@@ -42,6 +42,7 @@ export default function GalaxyOfLives() {
   const [screen, setScreen] = useState("form"); // "form" | "galaxy"
   const [profile, setProfile] = useState({ age: "26", work: "", loc: "", want: "", fear: "" });
   const [apiKey, setApiKey] = useState(() => localStorage.getItem("anthropic_key") || "");
+  const [keyError, setKeyError] = useState(false);
   const [received, setReceived] = useState(0);
   const [selected, setSelected] = useState(null);
   const [tooltip, setTooltip] = useState(null); // {x, y, star}
@@ -206,7 +207,7 @@ export default function GalaxyOfLives() {
     const cats = bs.map(s => s.cat);
     bs.forEach(s => (s.loading = true));
 
-    const prompt = `Simulate ${BATCH} parallel lives for a ${prof.age}-year-old who works as ${prof.work || "a professional"} in ${prof.loc || "a city"}. They want more: ${prof.want || "meaning"}. They fear: ${prof.fear || "regret"}.
+    const prompt = `Simulate ${BATCH} parallel lives for a ${prof.age}-year-old who works as ${prof.work || "a professional"} in ${prof.loc || "a city"}. They want more: ${prof.want || "meaning"}. They fear: ${prof.fear || "regret"}. Simulate over the next 40 years.
 
 Categories (in order): ${cats.join(", ")}
 
@@ -243,6 +244,11 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
   }
 
   function startGeneration() {
+    if (!apiKey.trim()) {
+      setKeyError(true);
+      return;
+    }
+    setKeyError(false);
     localStorage.setItem("anthropic_key", apiKey);
     starsRef.current = seedStars();
     viewRef.current = { ox: 0, oy: 0, sc: 1 };
@@ -267,7 +273,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
     return (
       <div className="galaxy-form">
         <h1>Your galaxy of lives</h1>
-        <p className="subtitle">100 parallel versions of you, simulated over the next 33 years. Each star is a life.</p>
+        <p className="subtitle">100 parallel versions of you, simulated over the next 40 years. Each star is a life.</p>
 
         <div className="api-key-card">
           <label>API Key</label>
@@ -275,9 +281,10 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
             type="password"
             placeholder="sk-ant-..."
             value={apiKey}
-            onChange={e => setApiKey(e.target.value)}
+            onChange={e => { setApiKey(e.target.value); setKeyError(false); }}
           />
-          <span className="api-note">Stays in your browser only — get one at <a href="https://console.anthropic.com" target="_blank" rel="noreferrer">console.anthropic.com</a></span>
+          <span className="api-note">Your key stays in your browser only. Get one free at <a href="https://console.anthropic.com" target="_blank" rel="noreferrer">console.anthropic.com</a></span>
+          {keyError && <span className="api-error">Please enter your Anthropic API key to continue.</span>}
         </div>
 
         {[
@@ -298,7 +305,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
           </div>
         ))}
 
-        <button onClick={startGeneration} disabled={!apiKey}>Generate my galaxy</button>
+        <button onClick={startGeneration}>Generate my galaxy</button>
       </div>
     );
   }
