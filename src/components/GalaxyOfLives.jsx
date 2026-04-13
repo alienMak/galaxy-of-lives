@@ -374,7 +374,7 @@ Each: {"headline":"max 8 words","summary":"3-4 sentences","inflection":"2 senten
         ))}
 
         <button onClick={startGeneration}>Generate my galaxy</button>
-        <footer className="galaxy-footer">Built by Mayukh Paul — <a href="https://twitter.com/alienmak" target="_blank" rel="noreferrer">@alienmak</a> · <a href="https://alienmak.github.io/portfolio/" target="_blank" rel="noreferrer">Portfolio</a></footer>
+        <footer className="galaxy-footer">Built by Mayukh Paul — <a href="https://www.linkedin.com/in/mayukh-paul-37b176190/" target="_blank" rel="noreferrer">@alienmak</a> · <a href="https://alienmak.github.io/portfolio/" target="_blank" rel="noreferrer">Portfolio</a></footer>
       </div>
     );
   }
@@ -447,7 +447,7 @@ Each: {"headline":"max 8 words","summary":"3-4 sentences","inflection":"2 senten
       </div>
 
       <button className="reset-btn" onClick={reset}>← Start over</button>
-      <footer className="galaxy-footer">Built by Mayukh Paul — <a href="https://twitter.com/alienmak" target="_blank" rel="noreferrer">@alienmak</a> · <a href="https://alienmak.github.io/portfolio/" target="_blank" rel="noreferrer">Portfolio</a></footer>
+      <footer className="galaxy-footer">Built by Mayukh Paul — <a href="https://www.linkedin.com/in/mayukh-paul-37b176190/" target="_blank" rel="noreferrer">@alienmak</a> · <a href="https://alienmak.github.io/portfolio/" target="_blank" rel="noreferrer">Portfolio</a></footer>
     </div>
   );
 }
