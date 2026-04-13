@@ -243,6 +243,7 @@
   border-radius: 12px;
   position: relative;
   overflow: hidden;
+  animation: galaxy-fade-in 0.5s 0.2s ease-out both;
 }
 
 .galaxy-screen .tooltip {
