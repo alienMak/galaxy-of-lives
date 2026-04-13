@@ -266,13 +266,19 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
   if (screen === "form") {
     return (
       <div className="galaxy-form">
-        {/* 
-          LOVABLE: Style this form however you like.
-          The key inputs are: age, work, loc, want, fear.
-          Call startGeneration() on submit.
-        */}
         <h1>Your galaxy of lives</h1>
-        <p>100 parallel versions of you, simulated over the next 33 years. Each star is a life.</p>
+        <p className="subtitle">100 parallel versions of you, simulated over the next 33 years. Each star is a life.</p>
+
+        <div className="api-key-card">
+          <label>API Key</label>
+          <input
+            type="password"
+            placeholder="sk-ant-..."
+            value={apiKey}
+            onChange={e => setApiKey(e.target.value)}
+          />
+          <span className="api-note">Stays in your browser only — get one at <a href="https://console.anthropic.com" target="_blank" rel="noreferrer">console.anthropic.com</a></span>
+        </div>
 
         {[
           { id: "age", label: "Your age", type: "number", placeholder: "26" },
@@ -292,7 +298,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
           </div>
         ))}
 
-        <button onClick={startGeneration}>Generate my galaxy</button>
+        <button onClick={startGeneration} disabled={!apiKey}>Generate my galaxy</button>
       </div>
     );
   }
