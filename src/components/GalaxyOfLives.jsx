@@ -44,6 +44,7 @@ export default function GalaxyOfLives() {
   const [apiKey, setApiKey] = useState(() => localStorage.getItem("anthropic_key") || "");
   const [keyError, setKeyError] = useState(false);
   const [received, setReceived] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
   const [selected, setSelected] = useState(null);
   const [tooltip, setTooltip] = useState(null); // {x, y, star}
 
