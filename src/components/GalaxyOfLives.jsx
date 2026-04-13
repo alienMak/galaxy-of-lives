@@ -41,8 +41,7 @@ function seedStars() {
 export default function GalaxyOfLives() {
   const [screen, setScreen] = useState("form"); // "form" | "galaxy"
   const [profile, setProfile] = useState({ age: "26", work: "", loc: "", want: "", fear: "", relationship: "", children: "", regret: "", goodlife: "", relocate: "" });
-  const [apiKey, setApiKey] = useState(() => localStorage.getItem("anthropic_key") || "");
-  const [keyError, setKeyError] = useState(false);
+  const [received, setReceived] = useState(0);
   const [received, setReceived] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const [selected, setSelected] = useState(null);
@@ -229,29 +228,26 @@ Return ONLY a valid JSON array of exactly ${BATCH} objects. No markdown, no extr
 Each: {"headline":"max 8 words","summary":"3-4 sentences","inflection":"2 sentences","tags":["tag1","tag2","tag3"]}`;
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": apiKey,
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true",
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 16000,
-          messages: [{ role: "user", content: prompt }],
-        }),
-      });
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${import.meta.env.VITE_GEMINI_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 1.0, maxOutputTokens: 8000 },
+          }),
+        }
+      );
 
       const data = await res.json();
-      console.log("Anthropic batch response:", data);
+      console.log("Gemini batch response:", data);
 
       if (!res.ok || data?.error) {
         throw new Error(data?.error?.message || `Request failed with status ${res.status}`);
       }
 
-      const raw = data.content?.[0]?.text || "[]";
+      const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || "[]";
       const lives = JSON.parse(raw.replace(/```json|```/g, "").trim());
       lives.forEach((l, i) => {
         if (bs[i]) { bs[i].life = l; bs[i].loading = false; }
@@ -260,20 +256,14 @@ Each: {"headline":"max 8 words","summary":"3-4 sentences","inflection":"2 senten
       setErrorMessage("");
     } catch (error) {
       const message = error instanceof Error ? error.message : "Failed to generate lives.";
-      console.error("Anthropic batch error:", error);
+      console.error("Gemini batch error:", error);
       setErrorMessage(message);
       bs.forEach(s => (s.loading = false));
     }
   }
 
   function startGeneration() {
-    if (!apiKey.trim()) {
-      setKeyError(true);
-      return;
-    }
-    setKeyError(false);
     setErrorMessage("");
-    localStorage.setItem("anthropic_key", apiKey);
     starsRef.current = seedStars();
     viewRef.current = { ox: 0, oy: 0, sc: 1 };
     setReceived(0);
@@ -300,17 +290,6 @@ Each: {"headline":"max 8 words","summary":"3-4 sentences","inflection":"2 senten
         <h1>Your galaxy of lives</h1>
         <p className="subtitle">100 parallel versions of you, simulated over the next 40 years. Each star is a life.</p>
 
-        <div className="api-key-card">
-          <label>API Key</label>
-          <input
-            type="password"
-            placeholder="sk-ant-..."
-            value={apiKey}
-            onChange={e => { setApiKey(e.target.value); setKeyError(false); }}
-          />
-          <span className="api-note">Your key stays in your browser only. Get one free at <a href="https://console.anthropic.com" target="_blank" rel="noreferrer">console.anthropic.com</a></span>
-          {keyError && <span className="api-error">Please enter your Anthropic API key to continue.</span>}
-        </div>
 
         {[
           { id: "age", label: "Your age", type: "number", placeholder: "26" },
