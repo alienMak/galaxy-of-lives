@@ -272,6 +272,7 @@
   border-radius: 12px;
   padding: 1.5rem;
   margin-top: 1rem;
+  animation: galaxy-fade-in 0.5s 0.4s ease-out both;
 }
 
 .detail-panel h2 {
