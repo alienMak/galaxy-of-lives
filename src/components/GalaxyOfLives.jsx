@@ -40,7 +40,7 @@ function seedStars() {
 // ── main component ─────────────────────────────────────────────────────────
 export default function GalaxyOfLives() {
   const [screen, setScreen] = useState("form"); // "form" | "galaxy"
-  const [profile, setProfile] = useState({ age: "26", work: "", loc: "", want: "", fear: "" });
+  const [profile, setProfile] = useState({ age: "26", work: "", loc: "", want: "", fear: "", relationship: "", children: "", regret: "", goodlife: "", relocate: "" });
   const [apiKey, setApiKey] = useState(() => localStorage.getItem("anthropic_key") || "");
   const [keyError, setKeyError] = useState(false);
   const [received, setReceived] = useState(0);
