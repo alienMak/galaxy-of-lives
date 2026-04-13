@@ -62,12 +62,20 @@ export default function GalaxyOfLives() {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+    const initCanvas = () => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
     };
-    resize();
+
+    const timeoutId = window.setTimeout(() => initCanvas(), 100);
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+    };
     window.addEventListener("resize", resize);
 
     function draw(ts) {
@@ -110,6 +118,7 @@ export default function GalaxyOfLives() {
 
     rafRef.current = requestAnimationFrame(draw);
     return () => {
+      window.clearTimeout(timeoutId);
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("resize", resize);
     };
