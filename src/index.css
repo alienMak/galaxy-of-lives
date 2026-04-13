@@ -1,105 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
+    --background: 214 60% 6%;
+    --foreground: 210 20% 90%;
+    --card: 216 50% 8%;
+    --card-foreground: 210 20% 90%;
+    --popover: 216 50% 8%;
+    --popover-foreground: 210 20% 90%;
+    --primary: 245 55% 26%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 55% 15%;
+    --secondary-foreground: 210 20% 90%;
+    --muted: 215 30% 20%;
+    --muted-foreground: 215 15% 55%;
+    --accent: 215 55% 15%;
+    --accent-foreground: 210 20% 90%;
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 40% 18%;
+    --input: 215 55% 15%;
+    --ring: 220 70% 45%;
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
+    --sidebar-background: 214 60% 6%;
+    --sidebar-foreground: 210 20% 90%;
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-
+  * { @apply border-border; }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
   }
+}
+
+/* ── Galaxy of Lives ── */
+
+.galaxy-form {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1.5rem;
+  background: #050d1a;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.galaxy-form h1 {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.galaxy-form .subtitle {
+  color: #7a8ba5;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.galaxy-form .api-key-card {
+  width: 100%;
+  background: #0a1628;
+  border: 1px solid #1e3a5f;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.galaxy-form .api-key-card label {
+  display: block;
+  color: #c0cfe0;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.galaxy-form .api-key-card input {
+  width: 100%;
+  background: #0d1f3c;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+
+.galaxy-form .api-key-card input:focus {
+  box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.35);
+}
+
+.galaxy-form .api-note {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 12px;
+  color: #5a6f8a;
+}
+
+.galaxy-form .api-note a {
+  color: #85B7EB;
+  text-decoration: underline;
+}
+
+.galaxy-form .field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.galaxy-form .field label {
+  display: block;
+  color: #c0cfe0;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.galaxy-form .field input {
+  width: 100%;
+  background: #0d1f3c;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+
+.galaxy-form .field input:focus {
+  box-shadow: 0 0 0 2px rgba(26, 86, 219, 0.35);
+}
+
+.galaxy-form .field input::placeholder {
+  color: #3d5273;
+}
+
+.galaxy-form button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2d1b69, #1a56db);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: box-shadow 0.2s, opacity 0.2s;
+}
+
+.galaxy-form button:hover:not(:disabled) {
+  box-shadow: 0 0 24px rgba(45, 27, 105, 0.5);
+}
+
+.galaxy-form button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Galaxy screen ── */
+
+.galaxy-screen {
+  min-height: 100vh;
+  background: #050d1a;
+  padding: 1rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.galaxy-screen .status {
+  color: #5a6f8a;
+  font-size: 13px;
+  margin-bottom: 0.5rem;
+}
+
+.galaxy-screen .legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.galaxy-screen .legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #8a9bb5;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+.galaxy-screen .legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.galaxy-screen .canvas-wrap {
+  flex: 1;
+  min-height: 400px;
+  background: #020810;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.galaxy-screen .tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: #0d1f3c;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: #fff;
+  font-size: 13px;
+  max-width: 220px;
+  z-index: 10;
+}
+
+.galaxy-screen .tooltip-cat {
+  color: #7a8ba5;
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+/* ── Detail panel ── */
+
+.detail-panel {
+  background: #0a1628;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.detail-panel h2 {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.detail-panel .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.detail-panel .tag {
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #0d1f3c;
+  color: #8a9bb5;
+}
+
+.detail-panel .tag.highlight {
+  /* colors set inline */
+}
+
+.detail-panel .summary {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.detail-panel .inflection {
+  color: #5a6f8a;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.detail-panel .hint {
+  color: #3d5273;
+  font-size: 14px;
+}
+
+.galaxy-screen .reset-btn {
+  margin-top: 1rem;
+  background: none;
+  border: 1px solid #1e3a5f;
+  border-radius: 8px;
+  color: #7a8ba5;
+  padding: 0.5rem 1rem;
+  font-size: 13px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.galaxy-screen .reset-btn:hover {
+  color: #fff;
+  border-color: #3d5273;
 }
