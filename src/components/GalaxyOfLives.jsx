@@ -288,6 +288,7 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
     setScreen("form");
     setSelected(null);
     setReceived(0);
+    setErrorMessage("");
   }
 
   // ── render ────────────────────────────────────────────────────────────────
