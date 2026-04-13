@@ -310,18 +310,6 @@ Each: {"headline":"max 8 words","summary":"2 specific sentences","inflection":"1
 
   return (
     <div className="galaxy-screen">
-      {/* 
-        LOVABLE: Style the galaxy screen.
-        Key pieces:
-          - statusText: shows generation progress
-          - The <canvas> is the galaxy — keep it as-is, just style the wrapper
-          - tooltip: shows on hover, position with tooltip.x / tooltip.y
-          - selected: the clicked star, has selected.life.headline / .summary / .inflection / .tags
-          - COL object maps category names to hex colors
-          - Call reset() for "start over"
-      */}
-
-      {/* Status bar */}
       <p className="status">{statusText}</p>
 
       {/* Legend */}
