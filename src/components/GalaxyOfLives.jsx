@@ -217,7 +217,7 @@ export default function GalaxyOfLives() {
     const cats = bs.map(s => s.cat);
     bs.forEach(s => (s.loading = true));
 
-    const prompt = `Simulate ${BATCH} parallel lives for a ${prof.age}-year-old who works as ${prof.work || "a professional"} in ${prof.loc || "a city"}. They want more: ${prof.want || "meaning"}. They fear: ${prof.fear || "regret"}. Simulate over the next 40 years.
+    const prompt = `Simulate ${BATCH} parallel lives for a ${prof.age}-year-old who works as ${prof.work || "a professional"} in ${prof.loc || "a city"}. They want more: ${prof.want || "meaning"}. They fear: ${prof.fear || "regret"}. They are currently ${prof.relationship || "single"} and ${prof.children === "Already have them" ? "already have children" : prof.children === "Yes, definitely" ? "definitely want children" : prof.children === "Maybe" ? "are unsure about children" : "do not want children"}. Their biggest regret is ${prof.regret || "not specified"}. They measure a good life by ${prof.goodlife || "freedom"}. ${prof.relocate === "Yes, absolutely" ? "They are open to living anywhere in the world." : prof.relocate === "Maybe if the right opportunity" ? "They might relocate for the right opportunity." : prof.relocate === "Probably not" ? "They are unlikely to leave their country." : "They value their roots and would not relocate."} Simulate over the next 40 years.
 
 Categories (in order): ${cats.join(", ")}
 
@@ -327,6 +327,49 @@ Each: {"headline":"max 8 words","summary":"3-4 sentences","inflection":"2 senten
               value={profile[f.id]}
               onChange={e => setProfile(p => ({ ...p, [f.id]: e.target.value }))}
             />
+          </div>
+        ))}
+
+        {/* Dropdown selects */}
+        {[
+          { id: "relationship", label: "Relationship status", options: ["Single", "In a relationship", "Married", "It's complicated"] },
+          { id: "children", label: "Do you want children?", options: ["Yes, definitely", "Maybe", "No", "Already have them"] },
+        ].map(f => (
+          <div key={f.id} className="field">
+            <label>{f.label}</label>
+            <select
+              value={profile[f.id]}
+              onChange={e => setProfile(p => ({ ...p, [f.id]: e.target.value }))}
+            >
+              <option value="">Select...</option>
+              {f.options.map(o => <option key={o} value={o}>{o}</option>)}
+            </select>
+          </div>
+        ))}
+
+        <div className="field">
+          <label>Biggest regret or missed turn so far</label>
+          <input
+            type="text"
+            placeholder="e.g. didn't start earlier, chose safety over passion"
+            value={profile.regret}
+            onChange={e => setProfile(p => ({ ...p, regret: e.target.value }))}
+          />
+        </div>
+
+        {[
+          { id: "goodlife", label: "How do you measure a good life?", options: ["Freedom", "Impact at scale", "Deep relationships", "Mastery of craft", "Wealth and security", "Adventure"] },
+          { id: "relocate", label: "Would you leave your country to live somewhere else?", options: ["Yes, absolutely", "Maybe if the right opportunity", "Probably not", "No, roots matter most"] },
+        ].map(f => (
+          <div key={f.id} className="field">
+            <label>{f.label}</label>
+            <select
+              value={profile[f.id]}
+              onChange={e => setProfile(p => ({ ...p, [f.id]: e.target.value }))}
+            >
+              <option value="">Select...</option>
+              {f.options.map(o => <option key={o} value={o}>{o}</option>)}
+            </select>
           </div>
         ))}
 
